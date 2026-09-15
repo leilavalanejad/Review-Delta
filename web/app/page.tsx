@@ -146,7 +146,7 @@ export default function Home() {
         </div>
         <nav aria-label="Project links">
           <span className="status"><i />Updated Sep 13</span>
-          <a href="https://github.com/leilavalanejad/review-signal" target="_blank" rel="noreferrer">Repository <ExternalLink /></a>
+          <a href="https://github.com/leilavalanejad/Review-Delta" target="_blank" rel="noreferrer">Repository <ExternalLink /></a>
         </nav>
       </header>
 

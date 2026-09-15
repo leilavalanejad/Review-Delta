@@ -1,17 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowUpRight, ChevronRight, ExternalLink, Info, Minus, Quote, TrendingDown, TrendingUp } from "lucide-react";
+import { ArrowUpRight, CalendarDays, ChevronRight, ExternalLink, Info, Minus, Quote, TrendingDown, TrendingUp } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import aiBrief from "@/data/brief.json";
 import streamingBrief from "@/data/streaming-brief.json";
+import historyData from "@/data/history.json";
 
 type Brief = typeof aiBrief;
 type ProductBrief = Brief["productBriefs"][number];
 type Insight = Brief["executiveInsights"][number];
 type ComparisonKey = "ai" | "streaming";
+type HistoryComparison = typeof historyData.comparisons.ai;
 
 const comparisons: Record<ComparisonKey, Brief> = {
   ai: aiBrief,
@@ -87,11 +89,38 @@ function ProductPanel({ item, open }: { item: ProductBrief; open: (ids: string[]
   );
 }
 
+function ChangeCard({ item }: { item: HistoryComparison["changes"][number] }) {
+  const tone = item.status === "Cooling" ? "cooling" : item.status === "Widening" ? "widening" : "rising";
+  return (
+    <article className={`change-card change-card--${tone}`}>
+      <div><span className="change-status">{item.status}</span><strong>{item.signal}</strong></div>
+      <h3>{item.title}</h3>
+      <p>{item.summary}</p>
+    </article>
+  );
+}
+
+function TrendLine({ before, after, tone }: { before: number; after: number; tone: "ink" | "clay" }) {
+  const ceiling = Math.max(before, after, 1) * 1.15;
+  const y1 = 34 - (before / ceiling) * 26;
+  const y2 = 34 - (after / ceiling) * 26;
+  return (
+    <svg className={`trend-line trend-line--${tone}`} viewBox="0 0 112 40" role="img" aria-label={`${before.toFixed(1)} percent to ${after.toFixed(1)} percent`}>
+      <path d="M8 34H104" className="trend-baseline" />
+      <path d={`M10 ${y1} L102 ${y2}`} className="trend-path" />
+      <circle cx="10" cy={y1} r="3" /><circle cx="102" cy={y2} r="3" />
+    </svg>
+  );
+}
+
 export default function Home() {
   const [comparison, setComparison] = useState<ComparisonKey>("ai");
   const [sheet, setSheet] = useState<{ ids: string[]; title: string }>({ ids: [], title: "" });
   const [activeProduct, setActiveProduct] = useState("Both");
   const brief = comparisons[comparison];
+  const history = historyData.comparisons[comparison] as HistoryComparison;
+  const priorSnapshot = history.snapshots[0];
+  const currentSnapshot = history.snapshots[history.snapshots.length - 1];
   const maxThemeValue = Math.ceil(Math.max(...brief.themes.flatMap((theme) => [theme.chatgpt, theme.claude])) / 10) * 10;
   const visibleProducts = useMemo(() => brief.productBriefs.filter((item) => activeProduct === "Both" || item.product === activeProduct), [activeProduct, brief]);
   const openEvidence = (ids: string[], title: string) => setSheet({ ids, title });
@@ -145,9 +174,10 @@ export default function Home() {
         <div className="window-summary"><span>Recent</span><strong>{brief.meta.recentWindow}</strong><span>Baseline</span><strong>{brief.meta.baselineWindow}</strong></div>
       </section>
 
-      <Tabs defaultValue="brief" className="workspace">
+      <Tabs defaultValue="changes" className="workspace">
         <div className="workspace-nav">
           <TabsList variant="line" className="workspace-tabs">
+            <TabsTrigger value="changes">Change over time</TabsTrigger>
             <TabsTrigger value="brief">Executive brief</TabsTrigger>
             <TabsTrigger value="products">Product opportunities</TabsTrigger>
             <TabsTrigger value="themes">Theme map</TabsTrigger>
@@ -155,6 +185,35 @@ export default function Home() {
           </TabsList>
           <span className="select-hint">Select any insight to trace the evidence</span>
         </div>
+
+        <TabsContent value="changes" className="tab-content">
+          <div className="section-head change-heading"><div><span className="eyebrow">Since the prior period</span><h2>What changed in the customer narrative?</h2></div><p>Theme share is compared across balanced panels, so movement reflects the mix of customer commentary rather than raw review volume.</p></div>
+          <div className="cadence-strip">
+            <div><CalendarDays /><span>Review collection</span><strong>{historyData.collectionCadence}</strong></div>
+            <div><span>Insight brief</span><strong>{historyData.briefCadence}</strong></div>
+            <div><span>History retained since</span><strong>{historyData.trackingStarted}</strong></div>
+            <div><span>Comparable periods</span><strong>{history.snapshots.length}</strong></div>
+          </div>
+          <div className="change-grid">{history.changes.map((item) => <ChangeCard item={item} key={item.title} />)}</div>
+          <div className="trajectory-block">
+            <div className="trajectory-head"><div><span className="eyebrow">Theme trajectories</span><h3>From baseline to current</h3></div><div className="period-key"><span>{priorSnapshot.window}</span><ChevronRight /><span>{currentSnapshot.window}</span></div></div>
+            <div className="trajectory-table">
+              <div className="trajectory-header"><span>Theme</span><span>{brief.products[0].name}</span><span>{brief.products[1].name}</span></div>
+              {brief.themes.map((theme) => {
+                const before = priorSnapshot.themes[theme.name as keyof typeof priorSnapshot.themes];
+                const after = currentSnapshot.themes[theme.name as keyof typeof currentSnapshot.themes];
+                return (
+                  <div className="trajectory-row" key={theme.name}>
+                    <strong>{theme.name}</strong>
+                    <div><TrendLine before={before[brief.products[0].name as keyof typeof before]} after={after[brief.products[0].name as keyof typeof after]} tone="ink" /><Delta value={theme.chatgptDelta} /></div>
+                    <div><TrendLine before={before[brief.products[1].name as keyof typeof before]} after={after[brief.products[1].name as keyof typeof after]} tone="clay" /><Delta value={theme.claudeDelta} /></div>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="chart-note">Two verified periods are available today. Future monthly briefs will extend these trajectories without rewriting prior snapshots.</p>
+          </div>
+        </TabsContent>
 
         <TabsContent value="brief" className="tab-content">
           <div className="section-head"><div><span className="eyebrow">Signal over noise</span><h2>Three things a product team should know</h2></div><p>Ordered by the strength of the pattern and its usefulness for product decisions.</p></div>

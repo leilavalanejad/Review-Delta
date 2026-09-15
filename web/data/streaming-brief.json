@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "Netflix vs. Disney+",
+    "collectionDate": "September 13, 2026",
+    "collected": 6273,
+    "analysisPanel": 360,
+    "recentWindow": "Aug 3–Sep 13, 2026",
+    "baselineWindow": "Jun 22–Aug 2, 2026",
+    "source": "Apple customer-review feeds across seven English-language storefronts",
+    "note": "The product synthesizes a balanced 360-review panel from 6,273 collected reviews. Results are directional: public reviews overrepresent customers motivated to post, and available history differs by storefront."
+  },
+  "products": [
+    { "name": "Netflix", "mark": "N", "tone": "ink", "recentRating": 3.68, "priorRating": 3.47, "panelReviews": 180, "url": "https://apps.apple.com/us/app/netflix/id363590051" },
+    { "name": "Disney+", "mark": "D+", "tone": "clay", "recentRating": 1.89, "priorRating": 1.93, "panelReviews": 180, "url": "https://apps.apple.com/us/app/disney/id1446075923" }
+  ],
+  "executiveInsights": [
+    {
+      "id": "access-before-content", "number": "01", "label": "Competitive difference",
+      "title": "For Disney+, the content promise is breaking before playback",
+      "summary": "Account and household access appears in more than a third of recent Disney+ reviews, while playback problems appear in nearly a quarter. Customers cannot value the catalog if login, device verification, or loading blocks the session.",
+      "metric": "Access: 36.7% vs. Netflix 4.4%", "delta": "Disney+ +11.1 pp", "evidenceIds": ["d-login", "d-load"]
+    },
+    {
+      "id": "catalog-carries", "number": "02", "label": "Netflix signal",
+      "title": "Catalog breadth still carries Netflix, but value pressure is rising",
+      "summary": "Content remains Netflix’s most common theme and its recent panel rating improved. At the same time, price and advertising mentions grew, suggesting the service is being reevaluated against a higher bar.",
+      "metric": "Content 33.3% · value 15.6%", "delta": "+5.5 pp / +4.5 pp", "evidenceIds": ["n-content", "n-value"]
+    },
+    {
+      "id": "offline-trust", "number": "03", "label": "Opportunity",
+      "title": "Offline viewing is an entitlement problem, not a download feature",
+      "summary": "Disney+ reviewers describe preparing downloads successfully and then losing access while traveling. The unmet need is confidence that purchased access will survive a change in network, device, or location.",
+      "metric": "Downloads: 8.9% vs. Netflix 2.2%", "delta": "Disney+ +1.1 pp", "evidenceIds": ["d-offline", "n-offline"]
+    }
+  ],
+  "productBriefs": [
+    {
+      "product": "Netflix", "tone": "ink", "position": "Breadth, familiarity, and discovery", "rating": "3.68", "ratingDelta": "+0.21",
+      "problems": [
+        { "title": "Freshness defines perceived catalog value", "signal": "33.3% of recent reviews", "change": "+5.5 pp", "description": "Customers celebrate breadth but react strongly when seasons, titles, or interactive content disappear or arrive late." },
+        { "title": "Price increases reset the quality bar", "signal": "15.6% of recent reviews", "change": "+4.5 pp", "description": "Higher prices and advertising lead customers to reassess content quality, release cadence, and ongoing subscription value together." },
+        { "title": "Discovery can turn abundance into fatigue", "signal": "3.3% of recent reviews", "change": "−7.8 pp", "description": "Even with fewer recent mentions, specific feedback asks for stronger filters, control over home-page rows, and faster paths to something worth watching." }
+      ],
+      "hypothesis": "Netflix’s breadth is still an advantage, but every price increase makes customers judge whether the catalog feels fresh and personally navigable today.",
+      "opportunity": "Let customers shape discovery intent: pin important rows, filter by language or origin, and make upcoming or leaving-soon availability easier to act on.",
+      "evidenceIds": ["n-content", "n-value", "n-discovery"]
+    },
+    {
+      "product": "Disney+", "tone": "clay", "position": "Franchise and family entertainment", "rating": "1.89", "ratingDelta": "−0.04",
+      "problems": [
+        { "title": "Authentication repeatedly breaks viewing", "signal": "36.7% of recent reviews", "change": "+11.1 pp", "description": "Unexpected logouts, device codes, and household checks force customers to prove access at the moment they want to watch." },
+        { "title": "Playback reliability compounds access friction", "signal": "24.4% of recent reviews", "change": "+6.6 pp", "description": "Loading failures and broken controls turn a successful login into another incomplete attempt." },
+        { "title": "Price is rising faster than perceived reliability", "signal": "35.6% of recent reviews", "change": "+11.2 pp", "description": "Charges, cancellation difficulty, and ad complaints become more damaging when the core app is already seen as unreliable." }
+      ],
+      "hypothesis": "Disney+ is judged as a family utility. Repeated verification and fragile offline access create disproportionate stress because one account must work across people, devices, and locations.",
+      "opportunity": "Create a resilient family access layer: longer trusted-device sessions, visible household status, recoverable TV login, and offline entitlements that survive travel.",
+      "evidenceIds": ["d-login", "d-load", "d-offline", "d-value"]
+    }
+  ],
+  "themes": [
+    { "name": "Account & access", "chatgpt": 4.4, "claude": 36.7, "chatgptDelta": -6.7, "claudeDelta": 11.1 },
+    { "name": "Price & value", "chatgpt": 15.6, "claude": 35.6, "chatgptDelta": 4.5, "claudeDelta": 11.2 },
+    { "name": "Content availability", "chatgpt": 33.3, "claude": 27.8, "chatgptDelta": 5.5, "claudeDelta": 1.1 },
+    { "name": "Playback & stability", "chatgpt": 3.3, "claude": 24.4, "chatgptDelta": -6.7, "claudeDelta": 6.6 },
+    { "name": "Family & profiles", "chatgpt": 4.4, "claude": 13.3, "chatgptDelta": -2.3, "claudeDelta": 5.5 },
+    { "name": "Downloads & travel", "chatgpt": 2.2, "claude": 8.9, "chatgptDelta": -5.6, "claudeDelta": 1.1 },
+    { "name": "Advertising", "chatgpt": 7.8, "claude": 7.8, "chatgptDelta": 1.1, "claudeDelta": -1.1 },
+    { "name": "Discovery", "chatgpt": 3.3, "claude": 3.3, "chatgptDelta": -7.8, "claudeDelta": 2.2 }
+  ],
+  "evidence": [
+    { "id": "n-content", "product": "Netflix", "country": "Australia", "date": "Sep 12, 2026", "rating": 5, "quote": "Great content, always bringing something new, affordable prices, and easy to use." },
+    { "id": "n-value", "product": "Netflix", "country": "Australia", "date": "Sep 12, 2026", "rating": 2, "quote": "I scroll for ages trying to find something. Fifteen minutes later I usually give up." },
+    { "id": "n-discovery", "product": "Netflix", "country": "United Kingdom", "date": "Sep 10, 2026", "rating": 1, "quote": "Let me pin My List and Top 10 at the top." },
+    { "id": "n-offline", "product": "Netflix", "country": "United Kingdom", "date": "Sep 13, 2026", "rating": 5, "quote": "It is great having download capability, especially if you travel a lot." },
+    { "id": "d-login", "product": "Disney+", "country": "Canada", "date": "Sep 7, 2026", "rating": 1, "quote": "We have to log in every time we use it. It also kicks us out after a movie." },
+    { "id": "d-load", "product": "Disney+", "country": "Canada", "date": "Aug 31, 2026", "rating": 2, "quote": "Content is good, but it frequently says to try again later." },
+    { "id": "d-offline", "product": "Disney+", "country": "Canada", "date": "Sep 6, 2026", "rating": 1, "quote": "I downloaded shows for my kids, but it logged me out on the plane." },
+    { "id": "d-value", "product": "Disney+", "country": "United Kingdom", "date": "Sep 12, 2026", "rating": 1, "quote": "The website and app seem designed to make cancellation difficult." }
+  ]
+}

@@ -29,10 +29,11 @@ Review Delta is designed around those decisions, not around sentiment scores or 
 
 For each comparison, the interface moves from signal to action:
 
-1. **Executive brief:** the three findings a product team should know.
-2. **Product opportunities:** recurring problem statements, a product hypothesis, and an area of opportunity for each company.
-3. **Theme map:** the share of recent reviews mentioning each theme and its movement against the prior six weeks.
-4. **Evidence trail:** representative customer excerpts behind every major conclusion.
+1. **Change over time:** what is rising, cooling, emerging, or separating across the two products.
+2. **Executive brief:** the three findings a product team should know.
+3. **Product opportunities:** recurring problem statements, a product hypothesis, and an area of opportunity for each company.
+4. **Theme map:** the share of recent reviews mentioning each theme and its movement against the prior six weeks.
+5. **Evidence trail:** representative customer excerpts behind every major conclusion.
 
 The comparison selector is intentional. It shows that the system can surface different problem structures across categories rather than repeating the same output with new product names.
 
@@ -49,7 +50,7 @@ The current version addresses that directly:
 | ChatGPT vs. Claude | 4,992 | 480 |
 | Netflix vs. Disney+ | 6,273 | 360 |
 
-The larger corpus makes it possible to show movement over time, recurring problem statements, and product-specific opportunity areas while keeping the analysis panel balanced across product and period.
+The larger corpus makes it possible to show movement over time, recurring problem statements, and product-specific opportunity areas while keeping the analysis panel balanced across product and period. The prototype now retains those comparable snapshots instead of replacing one six-week read with the next.
 
 ## Product decisions and tradeoffs
 
@@ -97,6 +98,16 @@ Review Delta keeps deterministic calculations for counts, shares, and changes. I
 
 No customer names are displayed, and the public demo stores only short evidence excerpts rather than the complete review corpus.
 
+## Tracking change over time
+
+Review Delta separates collection cadence from reporting cadence:
+
+- **Collect weekly** so high-volume products do not exceed the limited history exposed by public review feeds.
+- **Publish monthly** so product teams see meaningful shifts rather than weekly noise.
+- **Retain comparable snapshots** of rating, theme share, and representative evidence so each brief can lead with what changed since the prior period.
+
+The current prototype starts with two verified six-week periods. It does not fabricate older history. As monthly snapshots accumulate, the same data model can support 6–12 month trajectories, persistence signals, and release annotations.
+
 ## Source structure
 
 ```text
@@ -104,7 +115,7 @@ mine.py                          Original CLI analysis and baseline comparison
 refresh.py                       Model-assisted theme refresh for supplied reviews
 from_csv.py                      CSV validation and conversion
 web/app/                         Application-specific React interface
-web/data/                        Cached comparison briefs used by the demo
+web/data/                        Cached briefs plus appendable comparison history
 web/scripts/                     Reproducible App Store collection and analysis
 ```
 
@@ -112,7 +123,7 @@ The hosted interface is built with React and TypeScript through ChatGPT Sites. T
 
 ## What I would test next
 
-- Whether product teams prefer a fixed six-week window or one aligned with each product's release cadence.
+- Whether a monthly insight brief paired with weekly collection creates the right signal-to-noise ratio.
 - Whether opportunity statements are more useful when organized by customer job, journey stage, or product surface.
 - How much confidence improves when review findings are combined with support tickets, community posts, and release notes.
 - Where model-assisted theme interpretation materially outperforms a transparent rules-based taxonomy at larger scale.

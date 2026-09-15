@@ -1,214 +1,121 @@
-# Review Signal
+# Review Delta
 
-Turns two products' reviews into the competitive brief you'd walk into a
-meeting with.
+**Turn thousands of public product reviews into a competitive brief a product team can use.**
 
-```
-$ python mine.py
+[View the live prototype](https://review-delta.lvalanejad204461.chatgpt.site)
 
-COMPETITIVE BRIEF: Ledgerly vs Nestwell
-60 reviews  (Ledgerly 30, Nestwell 30)
+Review Delta shows what changed in the last six weeks, where two products differ, the recurring customer problems behind those differences, and the evidence supporting each conclusion.
 
+The prototype includes two selectable comparisons:
 
-WHAT'S MOVING   most of this showed up in the last 6 weeks
+- ChatGPT vs. Claude
+- Netflix vs. Disney+
 
-  Price increase backlash  (Ledgerly)
-    9 reviews, 9 recent, avg 1.7 stars
-    "They raised the subscription and did not add a single feature. Feels
-     like a bait and switch."
+## The problem
 
-  Bank sync reliability  (Nestwell)
-    8 reviews, 7 recent, avg 2.4 stars
-    "Sync failure lost a week of transactions. Had to categorize everything
-     by hand again."
+Review analysis usually produces a list of broad themes: customers like the product, dislike the price, and report bugs. Those summaries are easy to generate and difficult to use.
 
+A product team needs sharper answers:
 
-WHERE THEY DIVERGE   one product owns this
+- What is changing now rather than remaining steady?
+- Which problems are category-wide, and which are specific to one product?
+- What customer job or expectation sits underneath the complaint?
+- What hypothesis or product opportunity should the team investigate next?
+- Which customer quote makes the evidence tangible?
 
-  Interface and design   Ledgerly's strength
-    Ledgerly 7, Nestwell 1   avg 4.6 stars
-    "Best looking finance app I've used. Everything is where you expect it."
+Review Delta is designed around those decisions, not around sentiment scores or word clouds.
 
-  Support quality   Nestwell's strength
-    Nestwell 5   avg 4.8 stars
-    "Emailed support on a Sunday and got a real answer Monday morning."
+## What the product does
 
+For each comparison, the interface moves from signal to action:
 
-TABLE STAKES   both products, so it's the category
+1. **Executive brief:** the three findings a product team should know.
+2. **Product opportunities:** recurring problem statements, a product hypothesis, and an area of opportunity for each company.
+3. **Theme map:** the share of recent reviews mentioning each theme and its movement against the prior six weeks.
+4. **Evidence trail:** representative customer excerpts behind every major conclusion.
 
-  Joint and shared accounts    Ledgerly 4, Nestwell 2   avg 2.8
-  Reporting                    Ledgerly 3, Nestwell 1   avg 4.5
-```
+The comparison selector is intentional. It shows that the system can surface different problem structures across categories rather than repeating the same output with new product names.
 
----
+## What changed after testing the first prototype
 
-## Why this exists
+The first version was a command-line analysis of 60 invented reviews. It proved the basic logic but not the value of the product.
 
-Every review analyzer answers "what do people say," and the answer is always
-mush, because the biggest theme in any corpus is "I like it" and the second
-biggest is "I don't."
+The first web version used only 20 real reviews. That made the prototype look like a polished summary rather than a system capable of finding repeated customer problems. The evidence was too thin to demonstrate synthesis.
 
-Three questions are actually useful, and none of them are that one.
+The current version addresses that directly:
 
-**Where do we diverge?** A complaint both products share is the category's
-problem, not yours. Everyone's bank sync is flaky. The signal is in what
-skews to one side.
+| Comparison | Reviews collected | Balanced analysis panel |
+| --- | ---: | ---: |
+| ChatGPT vs. Claude | 4,992 | 480 |
+| Netflix vs. Disney+ | 6,273 | 360 |
 
-**What's changing?** A theme that's been steady for a year is background. One
-that showed up six weeks ago is news, and it's the only kind you can still do
-something about. Ledgerly's price backlash is nine reviews and all nine are
-recent. That's not a rating, that's an event.
+The larger corpus makes it possible to show movement over time, recurring problem statements, and product-specific opportunity areas while keeping the analysis panel balanced across product and period.
 
-**Says who?** A theme without a verbatim is an assertion. Every line here
-carries the quote it came from, because the quote is what you actually read
-out loud in the meeting.
+## Product decisions and tradeoffs
 
-## The part I got wrong twice
+### Balance before comparison
 
-I built the theme finder by clustering reviews on shared words. No model, no
-key, runs anywhere. It's still in here as `--baseline`, and it doesn't work.
+Available review history differs significantly by product and storefront. Comparing every collected review would let high-volume markets dominate the result.
 
-```
-$ python mine.py --compare
+Review Delta instead uses equal-sized samples from storefronts with enough coverage in both the recent and baseline windows. This gives up some volume in exchange for a more interpretable comparison.
 
-  words   10 themes covering 33/60 reviews
-  model   11 themes covering 59/60 reviews
+### Separate observation from interpretation
 
-  What the word version produced:
+Theme counts and changes are presented as observed signals. Product hypotheses and opportunity areas are a separate interpretation layer.
 
-     7  good                             ratings 2 to 5
-     5  support / account / again        ratings 1 to 4
-     3  support / fixed / email          ratings 2 to 5
-     3  solid                            ratings 3 to 4
-     2  years                            ratings 2 to 5
-```
+That distinction matters. A review can establish that login problems are recurring. It cannot prove why the problem exists or which solution will work.
 
-Two things are wrong there and the second one is fatal.
+### Evidence before eloquence
 
-It only reaches half the corpus, which is a tuning problem. I swept the
-threshold and there's no good value: lower and single-link chaining collapses
-forty reviews into one blob, higher and nothing groups at all.
+Every major conclusion opens to representative customer excerpts. A finding without a visible evidence trail is treated as an assertion, not an insight.
 
-But look at the star ranges. **Five of ten themes span three or more stars.**
-A "theme" containing both a five-star rave and a one-star complaint isn't a
-theme. And the reason is the whole lesson:
+### Directional, not representative
 
-> "Support is the best I have dealt with in any app" and "Support took nine
-> days to answer a billing question" share every content word and mean
-> opposite things.
+Public reviewers are self-selecting, and Apple exposes different amounts of history across markets. Review Delta is useful for forming sharper research questions and identifying emerging patterns. It is not designed to produce a statistically representative product ranking.
 
-Word overlap groups by vocabulary. Vocabulary is not meaning. No amount of
-tuning fixes that, because the information the clustering needs was never in
-the token counts.
+## A product lesson from the original build
 
-A model separates them, because separating them is a language problem:
+The original analyzer included both word-overlap clustering and model-generated themes. Word overlap grouped reviews that used similar vocabulary even when they expressed opposite experiences.
 
-```
-  What the model produced:
+For example, praise for responsive support and frustration with slow support share most of the same words. The important information is the meaning, not the vocabulary.
 
-     9  Price increase backlash          ratings 1 to 3
-     8  Bank sync reliability            ratings 1 to 4
-     8  Interface and design             ratings 4 to 5
-     5  Support quality                  ratings 4 to 5
-     3  Support responsiveness           ratings 1 to 2
-```
+That produced a useful product principle:
 
-Support quality and support responsiveness are two themes, correctly, and
-their star ranges don't overlap at all.
+> Use deterministic rules when the needed information is present in the structure. Use language models when the work requires interpretation.
 
-## Why that's not the same conclusion I reached last time
-
-I built [snack-check](https://github.com/leilavalanejad/snack-check) the same
-way, regex against a model, and there the regex **won** on the labels I'd
-tuned it against and only lost on formats it hadn't seen.
-
-Two projects, opposite answers, and the difference is the shape of the
-problem, not the size of it.
-
-Pulling a number off a nutrition panel is **extraction**. The information is
-already structured, it's just formatted inconsistently, and rules encode that
-structure fine. Deciding whether two sentences are about the same subject is
-**interpretation**. There's no structure to encode.
-
-So the useful question was never "should I use AI here." It was "is the
-information I need present in the surface form of the text." When it is, rules
-are cheaper, faster and easier to debug. When it isn't, no amount of rules will
-find it, and that's the case worth paying for.
-
-I only know that because I built both and one of them lost.
+Review Delta keeps deterministic calculations for counts, shares, and changes. Interpretation is used for theme meaning, product hypotheses, and opportunity framing.
 
 ## How it works
 
-```
-mine.py          themes, trends, skew, and the brief
-reviews.json     60 reviews across two products
-ai_themes.json   theme and sentiment per review, cached
-```
+1. Collect recent public reviews from Apple customer-review feeds across seven English-language storefronts.
+2. Divide reviews into a recent six-week window and the preceding six-week baseline.
+3. Build equal-sized product and period panels from storefronts with sufficient history.
+4. Map review language to a repeatable theme taxonomy.
+5. Calculate theme share, movement, rating change, and product skew.
+6. Translate the strongest signals into problem statements, hypotheses, and opportunity areas.
+7. Preserve representative excerpts for traceability.
 
-Both products are **invented**. Mining and publishing a real company's reviews
-means making claims about a real product, and this project is about the
-analysis. Point `-f` at your own file to use it for real.
+No customer names are displayed, and the public demo stores only short evidence excerpts rather than the complete review corpus.
 
-`ai_themes.json` is real model output, generated with the prompt in `mine.py`,
-cached so **this runs with no API key and no account.** Clone it and
-`--compare` works immediately.
+## Source structure
 
-The cache covers the 60 reviews shipped here. Point `-f` at your own file and
-it tells you how many reviews it has no answers for, rather than inventing
-some.
-
-That message exists because of a bug worth admitting. The cache used to be
-keyed by a review's position in the file, so loading your own reviews handed
-review 3 whatever theme sample review 3 had. Reviews about PDF exports and
-double billing came back labeled "Bank sync reliability," confidently, with no
-error. It's keyed by a hash of the review text now, so an unseen review misses
-and says so. A tool that quietly returns the wrong answer is worse than one
-that admits it doesn't know.
-
-## Usage
-
-```bash
-python mine.py                  # the brief
-python mine.py --compare        # both theme engines, side by side
-python mine.py --themes         # every theme, largest first
-python mine.py --baseline       # the word-overlap version, for contrast
+```text
+mine.py                          Original CLI analysis and baseline comparison
+refresh.py                       Model-assisted theme refresh for supplied reviews
+from_csv.py                      CSV validation and conversion
+web/app/                         Application-specific React interface
+web/data/                        Cached comparison briefs used by the demo
+web/scripts/                     Reproducible App Store collection and analysis
 ```
 
-No dependencies beyond the standard library. Python 3.8+.
+The hosted interface is built with React and TypeScript through ChatGPT Sites. The repository includes the application-specific interface, data, and analysis source. Standard Sites hosting scaffolding is managed separately.
 
-## Running it on real products
+## What I would test next
 
-**This tool does not fetch reviews.** It has no scraper and no network access.
-You bring the reviews; it does the analysis. That's a deliberate limit, not an
-oversight: review sites have terms about automated collection, and the
-interesting work here was never the fetching.
-
-Collect twenty to thirty reviews per product by hand into a spreadsheet with
-four columns, `product`, `rating`, `date`, `text`, then:
-
-```bash
-python from_csv.py my_reviews.csv    # spreadsheet to JSON, validates as it goes
-python refresh.py -f my_reviews.json # labels them with a model, costs cents
-python mine.py -f my_reviews.json    # the brief, free, and free every rerun
-```
-
-Only the middle step needs an API key. `from_csv.py` tells you which rows it
-skipped and why, which is usually a date formatted as a date rather than as
-text.
-
-Twenty per product is enough. This is looking for themes, not doing statistics.
-
-## What I'd do next
-
-- **The trend window is fixed at six weeks.** Fine for this corpus, wrong for a
-  product that ships quarterly. It should adapt to the release cadence.
-- **Sentiment comes from the model, severity comes from star ratings.** Those
-  disagree sometimes, and right now nothing notices when they do.
-- **Sixty reviews is small.** At five thousand the model pass costs real money
-  and a sample-then-extrapolate step starts earning its place.
-- **No competitor discovery.** You have to know who to compare against. Working
-  out who you're actually losing to is the harder question and this doesn't
-  touch it.
+- Whether product teams prefer a fixed six-week window or one aligned with each product's release cadence.
+- Whether opportunity statements are more useful when organized by customer job, journey stage, or product surface.
+- How much confidence improves when review findings are combined with support tickets, community posts, and release notes.
+- Where model-assisted theme interpretation materially outperforms a transparent rules-based taxonomy at larger scale.
 
 ---
 

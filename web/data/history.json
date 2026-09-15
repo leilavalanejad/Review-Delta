@@ -1,0 +1,91 @@
+{
+  "trackingStarted": "June 22, 2026",
+  "collectionCadence": "Weekly",
+  "briefCadence": "Monthly",
+  "comparisons": {
+    "ai": {
+      "snapshots": [
+        {
+          "id": "2026-08-02",
+          "label": "Baseline",
+          "window": "Jun 22–Aug 2, 2026",
+          "ratings": { "ChatGPT": 4.21, "Claude": 2.97 },
+          "themes": {
+            "Limits & value": { "ChatGPT": 5.0, "Claude": 17.5 },
+            "Coding & building": { "ChatGPT": 17.5, "Claude": 21.7 },
+            "Work & productivity": { "ChatGPT": 8.3, "Claude": 15.0 },
+            "Personal support": { "ChatGPT": 15.8, "Claude": 5.0 },
+            "Reliability": { "ChatGPT": 3.3, "Claude": 8.3 },
+            "Images & files": { "ChatGPT": 4.2, "Claude": 0.8 },
+            "Performance": { "ChatGPT": 3.3, "Claude": 6.7 },
+            "Learning": { "ChatGPT": 2.5, "Claude": 1.7 }
+          }
+        },
+        {
+          "id": "2026-09-13",
+          "label": "Current",
+          "window": "Aug 3–Sep 13, 2026",
+          "ratings": { "ChatGPT": 4.12, "Claude": 3.02 },
+          "themes": {
+            "Limits & value": { "ChatGPT": 7.5, "Claude": 19.2 },
+            "Coding & building": { "ChatGPT": 14.2, "Claude": 19.2 },
+            "Work & productivity": { "ChatGPT": 4.2, "Claude": 17.5 },
+            "Personal support": { "ChatGPT": 3.3, "Claude": 10.0 },
+            "Reliability": { "ChatGPT": 4.2, "Claude": 7.5 },
+            "Images & files": { "ChatGPT": 5.8, "Claude": 5.8 },
+            "Performance": { "ChatGPT": 4.2, "Claude": 7.5 },
+            "Learning": { "ChatGPT": 6.7, "Claude": 3.3 }
+          }
+        }
+      ],
+      "changes": [
+        { "status": "Rising", "title": "Paid limits are becoming shared friction", "summary": "Limit and value mentions increased for both products.", "signal": "Claude +1.7 pp · ChatGPT +2.5 pp" },
+        { "status": "Emerging", "title": "Claude’s mobile completion gap is now visible", "summary": "Images and file-handling mentions rose from 0.8% to 5.8%.", "signal": "+5.0 pp" },
+        { "status": "Cooling", "title": "ChatGPT personal-support commentary receded", "summary": "The theme remains present, but occupies far less of the recent review mix.", "signal": "−12.5 pp" },
+        { "status": "Widening", "title": "The workbench position is separating", "summary": "Work and productivity rose for Claude while declining for ChatGPT.", "signal": "13.3 pp current gap" }
+      ]
+    },
+    "streaming": {
+      "snapshots": [
+        {
+          "id": "2026-08-02",
+          "label": "Baseline",
+          "window": "Jun 22–Aug 2, 2026",
+          "ratings": { "Netflix": 3.47, "Disney+": 1.93 },
+          "themes": {
+            "Account & access": { "Netflix": 11.1, "Disney+": 25.6 },
+            "Price & value": { "Netflix": 11.1, "Disney+": 24.4 },
+            "Content availability": { "Netflix": 27.8, "Disney+": 26.7 },
+            "Playback & stability": { "Netflix": 10.0, "Disney+": 17.8 },
+            "Family & profiles": { "Netflix": 6.7, "Disney+": 7.8 },
+            "Downloads & travel": { "Netflix": 7.8, "Disney+": 7.8 },
+            "Advertising": { "Netflix": 6.7, "Disney+": 8.9 },
+            "Discovery": { "Netflix": 11.1, "Disney+": 1.1 }
+          }
+        },
+        {
+          "id": "2026-09-13",
+          "label": "Current",
+          "window": "Aug 3–Sep 13, 2026",
+          "ratings": { "Netflix": 3.68, "Disney+": 1.89 },
+          "themes": {
+            "Account & access": { "Netflix": 4.4, "Disney+": 36.7 },
+            "Price & value": { "Netflix": 15.6, "Disney+": 35.6 },
+            "Content availability": { "Netflix": 33.3, "Disney+": 27.8 },
+            "Playback & stability": { "Netflix": 3.3, "Disney+": 24.4 },
+            "Family & profiles": { "Netflix": 4.4, "Disney+": 13.3 },
+            "Downloads & travel": { "Netflix": 2.2, "Disney+": 8.9 },
+            "Advertising": { "Netflix": 7.8, "Disney+": 7.8 },
+            "Discovery": { "Netflix": 3.3, "Disney+": 3.3 }
+          }
+        }
+      ],
+      "changes": [
+        { "status": "Accelerating", "title": "Disney+ access friction is compounding", "summary": "Account and household access now appears in more than a third of recent reviews.", "signal": "+11.1 pp" },
+        { "status": "Rising", "title": "Value pressure increased for both services", "summary": "Price and value gained share across both review sets.", "signal": "Disney+ +11.2 pp · Netflix +4.5 pp" },
+        { "status": "Cooling", "title": "Netflix discovery complaints receded", "summary": "Discovery fell from 11.1% to 3.3% of the balanced panel.", "signal": "−7.8 pp" },
+        { "status": "Widening", "title": "Reliability is separating the experience", "summary": "Disney+ playback friction rose as Netflix playback commentary declined.", "signal": "21.1 pp current gap" }
+      ]
+    }
+  }
+}

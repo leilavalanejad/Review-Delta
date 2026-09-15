@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "ChatGPT vs. Claude",
+    "collectionDate": "September 13, 2026",
+    "collected": 4992,
+    "analysisPanel": 480,
+    "recentWindow": "Aug 3–Sep 13, 2026",
+    "baselineWindow": "Jun 22–Aug 2, 2026",
+    "source": "Apple customer-review feeds across seven English-language storefronts",
+    "note": "The product synthesizes a balanced 480-review panel from 4,992 collected reviews. Results are directional: public reviews overrepresent customers motivated to post, and available history differs by storefront."
+  },
+  "products": [
+    { "name": "ChatGPT", "mark": "O", "tone": "ink", "recentRating": 4.12, "priorRating": 4.21, "panelReviews": 240, "url": "https://apps.apple.com/us/app/chatgpt/id6448311069?platform=iphone&see-all=reviews" },
+    { "name": "Claude", "mark": "AI", "tone": "clay", "recentRating": 3.02, "priorRating": 2.97, "panelReviews": 240, "url": "https://apps.apple.com/us/app/claude-by-anthropic/id6473753684?platform=iphone&see-all=reviews" }
+  ],
+  "executiveInsights": [
+    {
+      "id": "paid-boundary", "number": "01", "label": "Shared friction",
+      "title": "The paid boundary is becoming part of the product experience",
+      "summary": "Limits, pricing, and upgrade prompts appear more often in the recent window for both products. Customers experience an interrupted task as a product failure, even when the model is performing well.",
+      "metric": "Claude 19.2% · ChatGPT 7.5%", "delta": "+1.7 pp / +2.5 pp", "evidenceIds": ["c-limit", "g-limit"]
+    },
+    {
+      "id": "workbench", "number": "02", "label": "Competitive difference",
+      "title": "Claude is discussed as a workbench; ChatGPT as a broad utility",
+      "summary": "Claude’s recent reviews contain more explicit work, coding, and planning language. ChatGPT’s reviews span learning, images, everyday questions, and personal utility more evenly.",
+      "metric": "Work mentions: 17.5% vs. 4.2%", "delta": "Claude +13.3 pp", "evidenceIds": ["c-work", "g-work"]
+    },
+    {
+      "id": "mobile-gap", "number": "03", "label": "Opportunity",
+      "title": "Model capability is being judged through mobile task completion",
+      "summary": "File handling, copy and paste, uploads, and performance recur beside praise for intelligence. The opportunity is not another model claim; it is helping customers finish the task on the device already in hand.",
+      "metric": "Images & files rose 5.0 pp for Claude", "delta": "Strongest emerging signal", "evidenceIds": ["c-mobile", "g-paste"]
+    }
+  ],
+  "productBriefs": [
+    {
+      "product": "ChatGPT", "tone": "ink", "position": "Broad everyday utility", "rating": "4.12", "ratingDelta": "−0.09",
+      "problems": [
+        { "title": "Limits interrupt high-intent moments", "signal": "7.5% of recent reviews", "change": "+2.5 pp", "description": "Photo, message, and plan limits become most visible after users have already invested in a task." },
+        { "title": "Trust breaks through contradiction", "signal": "4.2% of recent reviews", "change": "+0.9 pp", "description": "Reviewers notice when follow-up questions expose an earlier answer as incomplete or wrong." },
+        { "title": "Utility is broad, but the promise is diffuse", "signal": "Learning 6.7% · files 5.8%", "change": "Multiple jobs", "description": "Customers move between school, images, business, and everyday advice rather than clustering around one dominant job." }
+      ],
+      "hypothesis": "ChatGPT’s reach creates its own expectation: customers assume every task should continue fluidly across messages, media, and plans.",
+      "opportunity": "Make remaining capacity and fallback paths visible before interruption. Preserve the thread, inputs, and next-best action when a limit is reached.",
+      "evidenceIds": ["g-limit", "g-trust", "g-work"]
+    },
+    {
+      "product": "Claude", "tone": "clay", "position": "Deep work and guided thinking", "rating": "3.02", "ratingDelta": "+0.05",
+      "problems": [
+        { "title": "Plan limits overshadow capability", "signal": "19.2% of recent reviews", "change": "+1.7 pp", "description": "Paid customers still describe caps and eligibility as broken promises rather than packaging decisions." },
+        { "title": "Mobile workflows feel incomplete", "signal": "Files 5.8% · performance 7.5%", "change": "+5.0 pp / +0.8 pp", "description": "Uploads, file outputs, and iPhone task completion create friction around otherwise high-value work." },
+        { "title": "Behavior changes are highly salient", "signal": "8.3% of recent reviews", "change": "+0.8 pp", "description": "Tone, refusal, and perceived regressions can make an update feel like a different product." }
+      ],
+      "hypothesis": "Claude wins consideration for complex work, so customers judge it against an end-to-end professional workflow rather than answer quality alone.",
+      "opportunity": "Own the mobile completion loop: reliable file handling, clearer plan entitlements, and continuity when a workflow crosses limits or devices.",
+      "evidenceIds": ["c-limit", "c-mobile", "c-behavior", "c-work"]
+    }
+  ],
+  "themes": [
+    { "name": "Limits & value", "chatgpt": 7.5, "claude": 19.2, "chatgptDelta": 2.5, "claudeDelta": 1.7 },
+    { "name": "Coding & building", "chatgpt": 14.2, "claude": 19.2, "chatgptDelta": -3.3, "claudeDelta": -2.5 },
+    { "name": "Work & productivity", "chatgpt": 4.2, "claude": 17.5, "chatgptDelta": -4.1, "claudeDelta": 2.5 },
+    { "name": "Personal support", "chatgpt": 3.3, "claude": 10.0, "chatgptDelta": -12.5, "claudeDelta": 5.0 },
+    { "name": "Reliability", "chatgpt": 4.2, "claude": 7.5, "chatgptDelta": 0.9, "claudeDelta": -0.8 },
+    { "name": "Images & files", "chatgpt": 5.8, "claude": 5.8, "chatgptDelta": 1.6, "claudeDelta": 5.0 },
+    { "name": "Performance", "chatgpt": 4.2, "claude": 7.5, "chatgptDelta": 0.9, "claudeDelta": 0.8 },
+    { "name": "Learning", "chatgpt": 6.7, "claude": 3.3, "chatgptDelta": 4.2, "claudeDelta": 1.6 }
+  ],
+  "evidence": [
+    { "id": "g-limit", "product": "ChatGPT", "country": "Ireland", "date": "Sep 13, 2026", "rating": 2, "quote": "You can only send one or a few photos before it asks you to subscribe." },
+    { "id": "g-trust", "product": "ChatGPT", "country": "Singapore", "date": "Sep 8, 2026", "rating": 1, "quote": "When I asked more questions, it admitted it gave me contradictory information." },
+    { "id": "g-work", "product": "ChatGPT", "country": "New Zealand", "date": "Sep 3, 2026", "rating": 5, "quote": "Everything from monitoring my solar array to helping me run my business." },
+    { "id": "g-paste", "product": "ChatGPT", "country": "Ireland", "date": "Sep 5, 2026", "rating": 1, "quote": "Why won’t it let me copy and paste long text?" },
+    { "id": "c-limit", "product": "Claude", "country": "Canada", "date": "Aug 27, 2026", "rating": 1, "quote": "Even with the paid version they have a limit and want to charge you." },
+    { "id": "c-mobile", "product": "Claude", "country": "Australia", "date": "Sep 4, 2026", "rating": 2, "quote": "Business needs to be able to run on iPhone, not desktop." },
+    { "id": "c-behavior", "product": "Claude", "country": "United Kingdom", "date": "Sep 5, 2026", "rating": 1, "quote": "It used to be useful. I just want objective responses." },
+    { "id": "c-work", "product": "Claude", "country": "United Kingdom", "date": "Sep 11, 2026", "rating": 5, "quote": "An organisation tool, a thinking tool, a delivery tool, a nerve centre to your life." }
+  ]
+}
